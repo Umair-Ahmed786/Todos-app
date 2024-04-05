@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- navbar Ended -->
+    <div class="container my-4">
+        <h1 class="text-center">Todos List</h1>
+
+        <!-- Form -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title">
+        </div>
+
+        <div class="mb-3">
+            <label for="desc" class="form-label">Descripton</label>
+            <textarea class="form-control" id="desc" rows="3"></textarea>
+        </div>
+        <button type="submit" id="add" class="btn btn-outline-primary btn-md">Add</button>
+        <!-- Form ended -->
+
+
+        <!-- list started -->
+        <div class="item my-4">
+            <h2>List Items</h2>
+
+            <table class="table my-3">
+                <thead>
+                    <tr>
+                        <th scope="col">SNO</th>
+                        <th scope="col">Item Title</th>
+                        <th scope="col">Item Description</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="body">
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        var index = 1;
+        document.getElementById('add').addEventListener('click', () => {
+            var title = document.getElementById('title').value;
+            var desc = document.getElementById('desc').value;
+
+            var table = document.getElementById('body');
+            var row = table.insertRow(table.rows.length);
+
+            var cel1 = row.insertCell(0);
+            var cel2 = row.insertCell(1);
+            var cel3 = row.insertCell(2);
+            var cel4 = row.insertCell(3);
+
+            cel1.textContent = index++;
+            cel2.textContent = title;
+            cel3.textContent = desc;
+            // cel4.innerHTML = '<button class="btn btn-sm btn-outline-danger id="delete">Delete</button>';
+            var buttonId = 'deleteBtn' + index;
+            cel4.innerHTML = '<button id="' + buttonId + '" class="btn btn-sm btn-outline-danger" onclick="deleteRow(\'' + buttonId + '\')">Delete</button>';
+
+
+
+            document.getElementById('title').value = '';
+            document.getElementById('desc').value = '';
+        });
+
+        function deleteRow(buttonId) {
+
+            var row = document.getElementById(buttonId).closest('tr');
+            row.parentNode.removeChild(row);
+
+             var tableBody = document.getElementById('body');
+            var row_with_tr = document.getElementsByName('tr');
+            var column;
+            for (var i = 0; i < row_with_tr.length; i++) {
+                column = row_with_tr[i].getElementsByTagName('td');
+                column[0].textContent = i + 1;
+            }
+
+            // for (var i = 0; i < rows.length; i++) {
+            //     var cells = rows[i].getElementsByTagName('td');
+            //     // Update the index cell
+            //     cells[0].textContent = i + 1;
+            // }
+
+            // var row_num = document.getElementsByTagName('tr');
+            // var column;
+            // for(var i=0; i<num.length; i++){
+
+            //     column = document.getElementsByTagName('td');
+            //     column[0].textContent = i+1;
+            // }
+        }
+
+
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
